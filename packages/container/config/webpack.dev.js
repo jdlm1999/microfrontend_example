@@ -1,4 +1,4 @@
-const {merge} = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const common = require('./webpack.common.js');
 const packageJson = require('../package.json');
@@ -17,7 +17,12 @@ const devCOnfig = {
             remotes: {
                 marketing: 'marketing@http://localhost:8081/remoteEntry.js',
             },
-            shared: packageJson.dependencies,
+            shared: {
+                ...packageJson.dependencies,
+                react: { singleton: true, requiredVersion: packageJson.dependencies.react },
+                'react-dom': { singleton: true, requiredVersion: packageJson.dependencies['react-dom'] },
+                'react-router-dom': { singleton: true, requiredVersion: packageJson.dependencies['react-router-dom'] },
+            },
         }),
     ],
 };
