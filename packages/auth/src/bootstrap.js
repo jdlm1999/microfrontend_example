@@ -4,6 +4,7 @@ import { createMemoryHistory, createBrowserHistory } from 'history';
 import App from './App';
 
 const mount = (el, {
+    onSignIn,
     onNavigate,
     defaultHistory,
     initialPath
@@ -17,7 +18,7 @@ const mount = (el, {
     }
 
     ReactDOM.render(
-        <App history={history} />, el
+        <App history={history} onSignIn={onSignIn} />, el
     );
 
     return {
@@ -32,7 +33,7 @@ const mount = (el, {
 };
 
 if (process.env.NODE_ENV === 'development') {
-    const devRoot = document.querySelector('#_marketing-dev-root');
+    const devRoot = document.querySelector('#_auth-dev-root');
 
     if (devRoot) {
         // Use browser history in standalone dev for proper URL routing
